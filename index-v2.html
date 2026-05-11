@@ -158,6 +158,20 @@
       radial-gradient(ellipse at 70% 30%, rgba(232,185,92,0.06) 0%, transparent 45%);
     z-index: 2;
   }
+  .hero::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(
+      105deg,
+      rgba(10,14,31,0.72) 0%,
+      rgba(10,14,31,0.45) 45%,
+      rgba(10,14,31,0.08) 100%
+    );
+    pointer-events: none;
+    z-index: 1;
+  }
+  .hero > * { position: relative; z-index: 2; }
 
   .hero-content {
     position: relative;
@@ -696,6 +710,196 @@
   @media (prefers-reduced-motion: reduce) {
     *, *::before, *::after { animation-duration: 0.001s !important; transition-duration: 0.001s !important; }
   }
+
+  /* Scroll reveals */
+  .reveal {
+    opacity: 0;
+    transform: translateY(32px);
+    transition: opacity 0.75s ease, transform 0.75s ease;
+  }
+  .reveal.visible {
+    opacity: 1;
+    transform: translateY(0);
+  }
+  .reveal-delay-1 { transition-delay: 0.1s; }
+  .reveal-delay-2 { transition-delay: 0.22s; }
+  .reveal-delay-3 { transition-delay: 0.36s; }
+
+  /* Portal cards */
+  .portal-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: clamp(1.5rem, 3vw, 2.5rem);
+    margin: clamp(2rem, 4vw, 4rem) 0;
+  }
+  @media (max-width: 700px) { .portal-grid { grid-template-columns: 1fr; } }
+  .portal-card {
+    background: linear-gradient(135deg, rgba(45,33,72,0.55) 0%, rgba(22,27,51,0.8) 100%);
+    border: 1px solid rgba(232,185,92,0.15);
+    border-radius: 3px;
+    padding: clamp(2rem, 3vw, 3rem);
+    transition: border-color 350ms ease, background 350ms ease;
+  }
+  .portal-card:hover {
+    border-color: rgba(232,185,92,0.4);
+    background: linear-gradient(135deg, rgba(45,33,72,0.75) 0%, rgba(22,27,51,0.9) 100%);
+  }
+  .portal-lane {
+    font-family: var(--font-mono);
+    font-size: 0.68rem;
+    letter-spacing: 0.22em;
+    text-transform: uppercase;
+    color: var(--soul-gold);
+    margin-bottom: 1rem;
+  }
+  .portal-title {
+    font-family: var(--font-display);
+    font-variation-settings: 'opsz' 36, 'wght' 700, 'SOFT' 20;
+    font-size: clamp(1.5rem, 2.5vw, 2rem);
+    margin-bottom: 0.5rem;
+  }
+  .portal-line {
+    font-family: var(--font-display);
+    font-variation-settings: 'opsz' 14, 'wght' 400, 'SOFT' 40;
+    font-size: 1.05rem;
+    color: var(--soul-gold);
+    margin-bottom: 1.25rem;
+  }
+  .portal-body {
+    font-family: var(--font-display);
+    font-variation-settings: 'opsz' 14, 'wght' 360, 'SOFT' 40;
+    font-size: 0.95rem;
+    color: var(--text-secondary);
+    line-height: 1.65;
+  }
+  .portal-throughline {
+    font-family: var(--font-display);
+    font-variation-settings: 'opsz' 14, 'wght' 380, 'SOFT' 30;
+    font-size: clamp(1rem, 1.6vw, 1.15rem);
+    color: var(--text-secondary);
+    max-width: 72ch;
+    line-height: 1.7;
+    margin-top: 1rem;
+  }
+
+  /* Pull quote panels */
+  .pull-quote-panel {
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: clamp(4rem, 8vw, 8rem) clamp(1.5rem, 4vw, 3rem);
+    text-align: center;
+    position: relative;
+  }
+  .wound-panel {
+    background: radial-gradient(ellipse at center, rgba(45,33,72,0.6) 0%, var(--cosmic-deep) 70%);
+  }
+  .unicorn-panel {
+    background: radial-gradient(ellipse at center, rgba(176,70,206,0.12) 0%, var(--cosmic-deep) 70%);
+  }
+  .pull-quote-text {
+    font-family: var(--font-block);
+    font-size: clamp(3.5rem, 9vw, 9rem);
+    line-height: 1.0;
+    letter-spacing: -0.02em;
+    color: var(--bridge-cream);
+    max-width: 14ch;
+    text-transform: uppercase;
+  }
+
+  /* Full-bleed beach photo */
+  .bleed-photo-section {
+    padding: 0 0 clamp(4rem, 8vw, 8rem) 0;
+  }
+  .bleed-photo-wrap {
+    position: relative;
+    width: 100%;
+    height: clamp(50vh, 70vh, 800px);
+    overflow: hidden;
+    margin-bottom: clamp(3rem, 5vw, 5rem);
+  }
+  .bleed-photo {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: center 30%;
+    display: block;
+  }
+  .bleed-photo-overlay {
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(
+      180deg,
+      rgba(10,14,31,0.3) 0%,
+      rgba(10,14,31,0.0) 40%,
+      rgba(10,14,31,0.6) 100%
+    );
+    display: flex;
+    align-items: flex-end;
+    padding: clamp(2rem, 4vw, 4rem);
+  }
+  .bleed-photo-caption {
+    font-family: var(--font-display);
+    font-variation-settings: 'opsz' 36, 'wght' 400, 'SOFT' 60, 'WONK' 1;
+    font-style: italic;
+    font-size: clamp(1.5rem, 3vw, 2.5rem);
+    color: var(--soul-gold);
+  }
+  .lens-text {
+    max-width: 680px;
+    margin: 0 auto;
+    padding: 0 clamp(1.5rem, 4vw, 3rem);
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+    font-family: var(--font-display);
+    font-variation-settings: 'opsz' 14, 'wght' 380, 'SOFT' 30;
+    font-size: clamp(1rem, 1.6vw, 1.2rem);
+    color: var(--text-secondary);
+    line-height: 1.7;
+  }
+
+  /* Unicorn */
+  .unicorn-inner { text-align: center; }
+  .unicorn-sub {
+    font-family: var(--font-display);
+    font-variation-settings: 'opsz' 18, 'wght' 400, 'SOFT' 50, 'WONK' 1;
+    font-style: italic;
+    font-size: clamp(1.25rem, 2.5vw, 2rem);
+    color: var(--soul-gold);
+    margin-top: 1.5rem;
+  }
+
+  /* CTA */
+  .cta-section {
+    text-align: center;
+    padding: clamp(5rem, 10vw, 10rem) clamp(1.5rem, 4vw, 3rem);
+    border-top: 1px solid rgba(245,239,229,0.08);
+  }
+  .cta-label {
+    font-family: var(--font-mono);
+    font-size: 0.75rem;
+    letter-spacing: 0.22em;
+    text-transform: uppercase;
+    color: var(--text-quiet);
+    margin-bottom: 1.25rem;
+  }
+  .cta-link {
+    font-family: var(--font-display);
+    font-variation-settings: 'opsz' 36, 'wght' 500, 'SOFT' 40, 'WONK' 1;
+    font-style: italic;
+    font-size: clamp(1.5rem, 3vw, 2.5rem);
+    color: var(--soul-gold);
+    text-decoration: none;
+    border-bottom: 1px solid rgba(232,185,92,0.3);
+    padding-bottom: 0.15em;
+    transition: border-color 250ms ease, color 250ms ease;
+  }
+  .cta-link:hover {
+    color: var(--bridge-cream);
+    border-color: var(--bridge-cream);
+  }
 </style>
 </head>
 <body>
@@ -706,7 +910,7 @@
 <nav>
   <a href="#" class="wordmark">bret.llc</a>
   <ul class="nav-links">
-    <li><a href="#" class="placeholder" title="Coming soon">Reformation</a></li>
+    <li><a href="#" class="placeholder" title="Coming soon">Mental Health Reformation</a></li>
     <li><a href="#" class="placeholder" title="Coming soon">Filmanthropy</a></li>
     <li><a href="#" class="placeholder" title="Coming soon">ESP</a></li>
     <li><a href="#" class="placeholder" title="Coming soon">Futurist</a></li>
@@ -795,28 +999,26 @@
 <!-- ============ FRONT DOORS ============ -->
 <section class="frontdoor">
   <div class="container">
-    <div class="frontdoor-grid">
-      <span class="section-label">01 — Front Doors</span>
+    <div class="section-label reveal">§ 01 — FRONT DOORS</div>
+    <h2 class="section-lead reveal reveal-delay-1">Under the banner of Storylivingry Studio, <em>his transmedium production vision</em>, Bret leads two parallel front-door initiatives.</h2>
 
-      <h2>Under the banner of Storylivingry Studio, <em>his transmedium production vision</em>, Bret leads two parallel front-door initiatives.</h2>
-
-      <p>
-        As the visionary behind the <strong>Mental Health Reformation</strong> — <em class="gold">a Civil Rights Moviement for the Soul</em> — he is catalyzing the Mental Health Reformation Consortium in New Jersey with business partner <span class="gold">Janet Werner</span> (U Have My Word LLC), and leading the development of the <strong>AWARE App</strong>, a tool for first responders to recognize spiritually informed experiences in moments of crisis.
-      </p>
-
-      <!-- Pull quote: Civil Rights Moviement -->
-      <div class="pull-quote">
-        <p>A Civil Rights Moviement for the Soul.</p>
+    <div class="portal-grid">
+      <div class="portal-card reveal reveal-delay-1">
+        <div class="portal-lane">Lane One</div>
+        <h3 class="portal-title">Mental Health Reformation</h3>
+        <p class="portal-line"><em>A Civil Rights Moviement for the Soul.</em></p>
+        <p class="portal-body">As the visionary behind the Reformation, he is catalyzing the Mental Health Reformation Consortium in New Jersey with business partner Janet Werner (U Have My Word LLC), and leading development of the <strong>AWARE App</strong> — a tool for first responders to recognize spiritually informed experiences in moments of crisis.</p>
       </div>
 
-      <p>
-        As founder of <strong>Social Effects, Inc.</strong> — a New Jersey startup in development — he is the <em class="gold">Voice of Filmanthropy</em>: the practice of making philanthropy a featured, designed-in outcome of the filmmaking process itself, not a side effect, not a press release, not an afterthought.
-      </p>
-
-      <p>
-        Both initiatives are <em>in-formed</em> by the broader practice of <strong>Evolutionary and Spiritual Philanthropy</strong> — a philosophy and economic orientation Bret has lived and embodied for fifteen-plus years, traceable to a 2010 strategic document and a track record of approximately <span class="gold">four hundred thousand USD</span> and <span class="gold">three million-plus in resources</span> flowed through the projects he has been involved with.
-      </p>
+      <div class="portal-card reveal reveal-delay-2">
+        <div class="portal-lane">Lane Two</div>
+        <h3 class="portal-title">Filmanthropy</h3>
+        <p class="portal-line"><em>Story as civilizational infrastructure.</em></p>
+        <p class="portal-body">As founder of <strong>Social Effects, Inc.</strong> — a New Jersey startup in development — he is the <em>Voice of Filmanthropy</em>: the practice of making philanthropy a featured, designed-in outcome of the filmmaking process itself. Not a side effect. Not a press release. Not an afterthought.</p>
+      </div>
     </div>
+
+    <p class="portal-throughline reveal">Both initiatives are <em>in-formed</em> by the broader practice of <strong>Evolutionary and Spiritual Philanthropy</strong> — a philosophy and economic orientation Bret has lived and embodied for fifteen-plus years, traceable to a 2010 strategic document and a track record of approximately <em>four hundred thousand USD</em> and <em>three million-plus in resources</em> flowed through the projects he has been involved with.</p>
   </div>
 </section>
 
@@ -828,34 +1030,31 @@
         <span class="section-label">02 — Body of Work</span>
       </div>
       <div class="work-prose">
-        <p>Bret's body of work spans more than a decade of practical co-creation inside the lineage.</p>
-        <p>He worked directly with <span class="gold">Barbara Marx Hubbard</span> from 2014 to her passing in 2019, carrying forward her Seven S's of Co-creation framework. He is an alumnus of the Buckminster Fuller-inspired Design Science Studio, co-founder of <span class="gold">Symphonics</span> with his creative partner <span class="gold">Andrea Harding</span> — a thirteen-year collaboration in international systems-design and co-creation — and co-creator of <span class="gold">Synergy Hub 1.0, Rotterdam</span> (2016–2017), a sixteen-month multi-partner social experiment in gift-economy living and co-creative governance, run with the Meesteren Foundation and United Earth.</p>
-        <p>His writing — including a chapter in <span class="gold">Lisa Nichols</span>'s Amazon best-seller <em>Unbreakable Spirit</em> (2011) and more than three hundred essays at <em>The Syntony Times</em> — extends the work in long form.</p>
+        <p class="reveal">Bret's body of work spans more than a decade of practical co-creation inside the lineage.</p>
+        <p class="reveal reveal-delay-1">He worked directly with <span class="gold">Barbara Marx Hubbard</span> from 2014 to her passing in 2019, carrying forward her Seven S's of Co-creation framework. He is an alumnus of the Buckminster Fuller-inspired Design Science Studio, co-founder of <span class="gold">Symphonics</span> with his creative partner <span class="gold">Andrea Harding</span> — a thirteen-year collaboration in international systems-design and co-creation — and co-creator of <span class="gold">Synergy Hub 1.0, Rotterdam</span> (2016–2017), a sixteen-month multi-partner social experiment in gift-economy living and co-creative governance, run with the Meesteren Foundation and United Earth.</p>
+        <p class="reveal reveal-delay-2">His writing — including a chapter in <span class="gold">Lisa Nichols</span>'s Amazon best-seller <em>Unbreakable Spirit</em> (2011) and more than three hundred essays at <em>The Syntony Times</em> — extends the work in long form.</p>
       </div>
     </div>
   </div>
 </section>
 
-<!-- ============ LIVED EXPERIENCE ============ -->
-<section class="lived">
-  <div class="container">
-    <div class="lived-grid">
-      <div class="lived-photo">
-        <img src="images/bret-on-beach.png" alt="Bret resting on the beach — earned from the inside" />
-      </div>
-      <div class="lived-prose">
-        <span class="section-label">03 — The Lens</span>
-        <p>His perspective on healing, dignity, and human complexity is <em>earned from the inside</em> — thirty-plus years of living with perceived mental illness, thirteen-plus of them off psychiatric medication, and still in the work.</p>
-        <p>He doesn't speak from the other side of the experience; he speaks from inside it, alongside everyone else doing the same.</p>
+<!-- ============ WOUND PANEL ============ -->
+<section class="pull-quote-panel wound-panel">
+  <p class="pull-quote-text reveal">The wound<br/>is the lens.</p>
+</section>
 
-        <!-- Pull quote: The wound is the lens -->
-        <div class="pull-quote" style="max-width:32ch; margin: 2.5rem 0;">
-          <p>The wound is the lens.</p>
-        </div>
-
-        <p>The lens is earned the way every honest lens is — through participation, not through resolution.</p>
-      </div>
+<!-- ============ BEACH PHOTO + LENS TEXT ============ -->
+<section class="bleed-photo-section">
+  <div class="bleed-photo-wrap">
+    <img src="images/bret-on-beach.png" alt="Bret resting on the beach — earned from the inside" class="bleed-photo" />
+    <div class="bleed-photo-overlay">
+      <p class="bleed-photo-caption reveal"><em>earned from the inside</em></p>
     </div>
+  </div>
+  <div class="lens-text reveal">
+    <p>His perspective on healing, dignity, and human complexity is <em>earned from the inside</em> — thirty-plus years of living with perceived mental illness, thirteen-plus of them off psychiatric medication, and still in the work.</p>
+    <p>He doesn't speak from the other side of the experience; he speaks from inside it, alongside everyone else doing the same.</p>
+    <p>The lens is earned the way every honest lens is — through participation, not through resolution.</p>
   </div>
 </section>
 
@@ -869,6 +1068,14 @@
     <p class="recognition-body">
       No one — however brilliant, gifted, or impactful — reaches their highest potential alone. <strong>That is scenius. That is spiritual.</strong> And it is no coincidence that our most advanced technologies are beginning to mirror it: the recursive ontology where the One experiences itself as the many experiencing themselves as the One, expressing itself — the same recognition ancient wisdom traditions and cutting-edge AI are converging upon.
     </p>
+  </div>
+</section>
+
+<!-- ============ UNICORN PANEL ============ -->
+<section class="pull-quote-panel unicorn-panel">
+  <div class="unicorn-inner">
+    <p class="pull-quote-text reveal">The future is coming.</p>
+    <p class="unicorn-sub reveal reveal-delay-1">And he's hung like a unicorn.</p>
   </div>
 </section>
 
@@ -901,6 +1108,12 @@
   </div>
 </section>
 
+<!-- ============ CTA ============ -->
+<section class="cta-section reveal">
+  <p class="cta-label">Initiate a conversation</p>
+  <a href="mailto:B@fullofitindustries.com" class="cta-link">B@fullofitindustries.com</a>
+</section>
+
 <!-- ============ FOOTER ============ -->
 <footer>
   <div class="footer-grid">
@@ -911,6 +1124,19 @@
     </p>
   </div>
 </footer>
+
+<script>
+  const revealEls = document.querySelectorAll('.reveal');
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        entry.target.classList.add('visible');
+        observer.unobserve(entry.target);
+      }
+    });
+  }, { threshold: 0.12 });
+  revealEls.forEach(el => observer.observe(el));
+</script>
 
 <script>
 // Fallback: if video fails to play, show the portrait image
