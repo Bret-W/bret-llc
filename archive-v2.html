@@ -1,0 +1,517 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<meta name="robots" content="noindex, nofollow, noarchive">
+<title>Archive — Bret Warshawsky</title>
+<meta name="description" content="A working archive of conversations, talks, and appearances from the body of work." />
+
+<!-- Fonts -->
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Archivo+Black&family=Fraunces:ital,opsz,wght,SOFT,WONK@0,9..144,300..900,0..100,0..1;1,9..144,300..900,0..100,0..1&family=JetBrains+Mono:ital,wght@0,300..700;1,300..700&display=swap" rel="stylesheet">
+
+<style>
+  :root {
+    --cosmic-deep:   #0A0E1F;
+    --cosmic-navy:   #161B33;
+    --cosmic-violet: #2D2148;
+    --cosmic-haze:   #3E2D5F;
+    --noosphere-magenta: #B046CE;
+    --soul-gold:    #E8B95C;
+    --soul-amber:   #D4A647;
+    --bridge-cream: #F5EFE5;
+    --text-primary:   #F5EFE5;
+    --text-secondary: rgba(245,239,229,0.62);
+    --text-quiet:     rgba(245,239,229,0.35);
+    --font-display: 'Fraunces', Georgia, serif;
+    --font-block:   'Archivo Black', system-ui, sans-serif;
+    --font-mono:    'JetBrains Mono', 'Courier New', monospace;
+    --rhythm: clamp(3rem, 6vw, 5.5rem);
+  }
+
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  html { scroll-behavior: smooth; }
+
+  body {
+    background: var(--cosmic-deep);
+    color: var(--text-primary);
+    font-family: var(--font-display);
+    font-variation-settings: 'opsz' 14, 'wght' 380, 'SOFT' 30;
+    line-height: 1.65;
+    overflow-x: hidden;
+    min-height: 100vh;
+  }
+
+  /* Cosmic ambient background */
+  body::before {
+    content: '';
+    position: fixed;
+    inset: 0;
+    background:
+      radial-gradient(ellipse at 20% 30%, rgba(176,70,206,0.06) 0%, transparent 50%),
+      radial-gradient(ellipse at 80% 70%, rgba(45,33,72,0.4) 0%, transparent 50%),
+      radial-gradient(ellipse at 50% 50%, rgba(22,27,51,0.5) 0%, var(--cosmic-deep) 80%);
+    pointer-events: none;
+    z-index: -1;
+  }
+
+  /* Connection-line SVG texture */
+  body::after {
+    content: '';
+    position: fixed;
+    inset: 0;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 800 800'%3E%3Cg fill='none' stroke='%23ffffff' stroke-width='0.4' opacity='0.05'%3E%3Cline x1='100' y1='200' x2='400' y2='350'/%3E%3Cline x1='400' y1='350' x2='700' y2='180'/%3E%3Cline x1='400' y1='350' x2='550' y2='600'/%3E%3Cline x1='100' y1='200' x2='200' y2='550'/%3E%3Cline x1='700' y1='180' x2='720' y2='480'/%3E%3Cline x1='550' y1='600' x2='720' y2='480'/%3E%3Cline x1='200' y1='550' x2='550' y2='600'/%3E%3Ccircle cx='100' cy='200' r='1.5' fill='%23ffffff'/%3E%3Ccircle cx='400' cy='350' r='2' fill='%23ffffff'/%3E%3Ccircle cx='700' cy='180' r='1.5' fill='%23ffffff'/%3E%3Ccircle cx='550' cy='600' r='1.5' fill='%23ffffff'/%3E%3Ccircle cx='200' cy='550' r='1.5' fill='%23ffffff'/%3E%3Ccircle cx='720' cy='480' r='1.5' fill='%23ffffff'/%3E%3C/g%3E%3C/svg%3E");
+    background-size: 1200px 1200px;
+    background-position: center;
+    opacity: 0.5;
+    pointer-events: none;
+    z-index: -1;
+  }
+
+  /* ============ NAV ============ */
+  nav {
+    position: fixed;
+    top: 0; left: 0; right: 0;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 1.4rem clamp(1.5rem, 4vw, 3rem);
+    z-index: 200;
+    background: linear-gradient(180deg, rgba(10,14,31,0.92) 0%, transparent 100%);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+  }
+  .wordmark {
+    font-family: var(--font-display);
+    font-variation-settings: 'opsz' 36, 'wght' 500, 'SOFT' 50, 'WONK' 1;
+    font-style: italic;
+    font-size: 1.4rem;
+    color: var(--soul-gold);
+    text-decoration: none;
+    letter-spacing: 0.02em;
+    transition: opacity 220ms ease;
+  }
+  .wordmark:hover { opacity: 0.75; }
+  .nav-links {
+    display: flex;
+    gap: clamp(0.8rem, 2vw, 2rem);
+    list-style: none;
+  }
+  .nav-links a {
+    font-family: var(--font-mono);
+    font-size: 0.73rem;
+    color: var(--text-secondary);
+    text-decoration: none;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    transition: color 220ms ease;
+    position: relative;
+  }
+  .nav-links a::after {
+    content: '';
+    position: absolute;
+    left: 0; bottom: -4px;
+    width: 0; height: 1px;
+    background: var(--soul-gold);
+    transition: width 280ms ease;
+  }
+  .nav-links a:hover { color: var(--soul-gold); }
+  .nav-links a:hover::after { width: 100%; }
+  .nav-links .placeholder { opacity: 0.45; cursor: not-allowed; }
+  .nav-links .placeholder::before { content: '◌ '; font-size: 0.85em; color: var(--text-quiet); }
+  .nav-links .placeholder:hover { color: var(--text-secondary); }
+  .nav-links .placeholder:hover::after { width: 0; }
+  .nav-links .active { color: var(--soul-gold); }
+  .nav-links .active::after { width: 100%; }
+
+  @media (max-width: 650px) {
+    .nav-links { gap: 0.5rem; }
+    .nav-links .placeholder::before { content: ''; }
+    .nav-links a { font-size: 0.6rem; letter-spacing: 0.07em; }
+  }
+
+  /* ============ PAGE HEADER ============ */
+  .page-header {
+    padding: 9rem clamp(1.5rem, 5vw, 5rem) 4rem;
+    max-width: 1100px;
+    margin: 0 auto;
+    opacity: 0;
+    animation: rise 1.2s 0.2s cubic-bezier(0.16,1,0.3,1) forwards;
+  }
+  .page-label {
+    font-family: var(--font-mono);
+    font-size: 0.72rem;
+    color: var(--text-quiet);
+    letter-spacing: 0.26em;
+    text-transform: uppercase;
+    margin-bottom: 1.5rem;
+  }
+  .page-title {
+    font-family: var(--font-block);
+    font-size: clamp(3rem, 8vw, 6.5rem);
+    line-height: 0.92;
+    letter-spacing: 0.04em;
+    text-transform: uppercase;
+    color: var(--text-primary);
+    margin-bottom: 2rem;
+  }
+  .page-intro {
+    font-family: var(--font-display);
+    font-variation-settings: 'opsz' 14, 'wght' 360, 'SOFT' 60;
+    font-style: italic;
+    font-size: clamp(1.1rem, 2vw, 1.4rem);
+    color: var(--text-secondary);
+    max-width: 54ch;
+    line-height: 1.55;
+  }
+
+  @keyframes rise {
+    from { opacity: 0; transform: translateY(22px); }
+    to   { opacity: 1; transform: translateY(0); }
+  }
+
+  /* ============ MARQUEE ============ */
+  .marquee-wrap {
+    width: 100%;
+    overflow: hidden;
+    background: rgba(10,14,31,0.85);
+    border-top: 1px solid rgba(232,185,92,0.15);
+    border-bottom: 1px solid rgba(232,185,92,0.15);
+    padding: 0.85rem 0;
+  }
+  .marquee-track {
+    display: flex;
+    width: max-content;
+    animation: marquee 40s linear infinite;
+  }
+  .marquee-track:hover { animation-play-state: paused; }
+  .marquee-item {
+    font-family: var(--font-mono);
+    font-size: 0.68rem;
+    letter-spacing: 0.22em;
+    text-transform: uppercase;
+    color: var(--soul-gold);
+    opacity: 0.75;
+    white-space: nowrap;
+    padding: 0 2.5rem;
+  }
+  .marquee-dot { color: var(--text-quiet); opacity: 0.5; padding: 0 0.5rem; }
+  @keyframes marquee {
+    from { transform: translateX(0); }
+    to   { transform: translateX(-50%); }
+  }
+
+  /* ============ DIVIDER ============ */
+  .divider {
+    border: none;
+    border-top: 1px solid rgba(245,239,229,0.08);
+    margin: 0 clamp(1.5rem, 4vw, 3rem);
+  }
+
+  /* ============ ARCHIVE SECTIONS ============ */
+  .archive-section {
+    padding: var(--rhythm) clamp(1.5rem, 4vw, 3rem);
+    max-width: 1200px;
+    margin: 0 auto;
+  }
+
+  .section-header { margin-bottom: clamp(2.5rem, 5vw, 4rem); }
+
+  .section-lane {
+    font-family: var(--font-mono);
+    font-size: 0.7rem;
+    letter-spacing: 0.26em;
+    text-transform: uppercase;
+    margin-bottom: 0.75rem;
+    opacity: 0.85;
+  }
+
+  /* Lane accent colors */
+  .lane-reformation .section-lane { color: #D6602F; }
+  .lane-futurist    .section-lane { color: #B046CE; }
+  .lane-esp         .section-lane { color: var(--soul-gold); }
+  .lane-lineage     .section-lane { color: #5B9EC9; }
+
+  .section-title {
+    font-family: var(--font-display);
+    font-variation-settings: 'opsz' 36, 'wght' 600, 'SOFT' 30;
+    font-size: clamp(1.6rem, 3vw, 2.4rem);
+    line-height: 1.2;
+    margin-bottom: 0.85rem;
+    color: var(--text-primary);
+  }
+
+  .section-desc {
+    font-family: var(--font-display);
+    font-variation-settings: 'opsz' 14, 'wght' 360, 'SOFT' 40;
+    font-style: italic;
+    font-size: 1rem;
+    color: var(--text-secondary);
+    max-width: 54ch;
+    line-height: 1.6;
+  }
+
+  /* ============ VIDEO GRID ============ */
+  .video-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(min(100%, 460px), 1fr));
+    gap: clamp(2rem, 4vw, 3.5rem);
+  }
+
+  .video-card {
+    display: flex;
+    flex-direction: column;
+  }
+
+  .video-embed {
+    position: relative;
+    width: 100%;
+    aspect-ratio: 16 / 9;
+    background: var(--cosmic-navy);
+    border-radius: 2px;
+    overflow: hidden;
+    margin-bottom: 1.25rem;
+    border: 1px solid rgba(245,239,229,0.07);
+    transition: border-color 280ms ease;
+  }
+  .video-card:hover .video-embed {
+    border-color: rgba(232,185,92,0.2);
+  }
+  .video-embed iframe {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    border: none;
+  }
+
+  .video-meta {
+    font-family: var(--font-mono);
+    font-size: 0.66rem;
+    color: var(--text-quiet);
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    margin-bottom: 0.55rem;
+  }
+
+  .video-title {
+    font-family: var(--font-display);
+    font-variation-settings: 'opsz' 18, 'wght' 520, 'SOFT' 30;
+    font-size: clamp(1rem, 1.8vw, 1.2rem);
+    line-height: 1.35;
+    margin-bottom: 0.6rem;
+    color: var(--text-primary);
+  }
+
+  .video-desc {
+    font-family: var(--font-display);
+    font-variation-settings: 'opsz' 14, 'wght' 360, 'SOFT' 40;
+    font-size: 0.9rem;
+    color: var(--text-secondary);
+    line-height: 1.65;
+  }
+
+  .gold {
+    color: var(--soul-gold);
+    font-style: italic;
+  }
+
+  /* ============ FOOTER ============ */
+  footer {
+    padding: 3rem clamp(1.5rem, 4vw, 3rem);
+    border-top: 1px solid rgba(245,239,229,0.07);
+    background: var(--cosmic-deep);
+    margin-top: var(--rhythm);
+  }
+  .footer-grid {
+    max-width: 1100px;
+    margin: 0 auto;
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+  }
+  @media (min-width: 700px) {
+    .footer-grid { flex-direction: row; justify-content: space-between; align-items: center; }
+  }
+  .footer-wordmark {
+    font-family: var(--font-display);
+    font-variation-settings: 'opsz' 36, 'wght' 500, 'SOFT' 50, 'WONK' 1;
+    font-style: italic;
+    color: var(--soul-gold);
+    font-size: 1.2rem;
+  }
+  .footer-meta {
+    font-family: var(--font-mono);
+    font-size: 0.7rem;
+    color: var(--text-quiet);
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    line-height: 1.9;
+  }
+  .footer-meta a { color: var(--text-secondary); text-decoration: none; transition: color 220ms ease; }
+  .footer-meta a:hover { color: var(--soul-gold); }
+
+  @media (min-width: 900px) {
+    ::-webkit-scrollbar { width: 5px; }
+    ::-webkit-scrollbar-track { background: var(--cosmic-deep); }
+    ::-webkit-scrollbar-thumb { background: var(--cosmic-haze); border-radius: 3px; }
+    ::-webkit-scrollbar-thumb:hover { background: var(--soul-amber); }
+  }
+  @media (prefers-reduced-motion: reduce) {
+    *, *::before, *::after { animation-duration: 0.001s !important; transition-duration: 0.001s !important; }
+  }
+</style>
+</head>
+<body>
+
+<!-- ============ NAV ============ -->
+<nav>
+  <a href="index-v2.html" class="wordmark">bret.llc</a>
+  <ul class="nav-links">
+    <li><a href="#" class="placeholder" title="Coming soon">Reformation</a></li>
+    <li><a href="#" class="placeholder" title="Coming soon">Filmanthropy</a></li>
+    <li><a href="#" class="placeholder" title="Coming soon">ESP</a></li>
+    <li><a href="#" class="placeholder" title="Coming soon">Futurist</a></li>
+    <li><a href="archive-v2.html" class="active">Archive</a></li>
+  </ul>
+</nav>
+
+<!-- ============ PAGE HEADER ============ -->
+<div class="page-header">
+  <p class="page-label">Bret Warshawsky &nbsp;·&nbsp; Selected Appearances</p>
+  <h1 class="page-title">Archive</h1>
+  <p class="page-intro">A working record of conversations, talks, and appearances from the body of work — unpolished, in motion, still becoming.</p>
+</div>
+
+<!-- ============ MARQUEE ============ -->
+<div class="marquee-wrap" aria-hidden="true">
+  <div class="marquee-track">
+    <span class="marquee-item">Mental Health Reformation</span><span class="marquee-dot">·</span>
+    <span class="marquee-item">Filmanthropy</span><span class="marquee-dot">·</span>
+    <span class="marquee-item">Evolutionary &amp; Spiritual Philanthropy</span><span class="marquee-dot">·</span>
+    <span class="marquee-item">Occupying the Noosphere</span><span class="marquee-dot">·</span>
+    <span class="marquee-item">Co-creation</span><span class="marquee-dot">·</span>
+    <span class="marquee-item">Synergy Hub Rotterdam</span><span class="marquee-dot">·</span>
+    <span class="marquee-item">The Wound as Lens</span><span class="marquee-dot">·</span>
+    <span class="marquee-item">Storylivingry Studio</span><span class="marquee-dot">·</span>
+    <span class="marquee-item">Making a Livingry</span><span class="marquee-dot">·</span>
+    <span class="marquee-item">Civil Rights Moviement for the Soul</span><span class="marquee-dot">·</span>
+    <!-- Duplicate for seamless loop -->
+    <span class="marquee-item">Mental Health Reformation</span><span class="marquee-dot">·</span>
+    <span class="marquee-item">Filmanthropy</span><span class="marquee-dot">·</span>
+    <span class="marquee-item">Evolutionary &amp; Spiritual Philanthropy</span><span class="marquee-dot">·</span>
+    <span class="marquee-item">Occupying the Noosphere</span><span class="marquee-dot">·</span>
+    <span class="marquee-item">Co-creation</span><span class="marquee-dot">·</span>
+    <span class="marquee-item">Synergy Hub Rotterdam</span><span class="marquee-dot">·</span>
+    <span class="marquee-item">The Wound as Lens</span><span class="marquee-dot">·</span>
+    <span class="marquee-item">Storylivingry Studio</span><span class="marquee-dot">·</span>
+    <span class="marquee-item">Making a Livingry</span><span class="marquee-dot">·</span>
+    <span class="marquee-item">Civil Rights Moviement for the Soul</span><span class="marquee-dot">·</span>
+  </div>
+</div>
+
+<!-- ============ SECTION 1: MENTAL HEALTH REFORMATION ============ -->
+<section class="archive-section lane-reformation">
+  <div class="section-header">
+    <p class="section-lane">Lane One</p>
+    <h2 class="section-title">Mental Health Reformation</h2>
+    <p class="section-desc">The wound as lens. Thirty-plus years of living with perceived mental illness, and the civil rights movement it became.</p>
+  </div>
+  <div class="video-grid">
+
+    <div class="video-card">
+      <div class="video-embed">
+        <iframe src="https://www.youtube.com/embed/4d-0u7crkdk" title="Transforming Perceived Mental Illness Into A Blessing" loading="lazy" allowfullscreen></iframe>
+      </div>
+      <p class="video-meta">~2021</p>
+      <p class="video-title">Transforming Perceived Mental Illness Into A Blessing: A Personal Story For A Collective Journey</p>
+      <p class="video-desc">The origin story. Where the wound becomes the lens, the diagnosis becomes the critique, and the personal becomes the systemic.</p>
+    </div>
+
+    <div class="video-card">
+      <div class="video-embed">
+        <iframe src="https://www.youtube.com/embed/FoHpZ4hDcFQ" title="Envisioning the Alternative Reality Summit For Mental Health Reformation" loading="lazy" allowfullscreen></iframe>
+      </div>
+      <p class="video-meta">June 2022</p>
+      <p class="video-title">Envisioning the Alternative Reality Summit For Mental Health Reformation</p>
+      <p class="video-desc">Off the cuff. The Civil Rights Moviement for the Soul before it had that name — the vision cast, in real time, still forming.</p>
+    </div>
+
+  </div>
+</section>
+
+<hr class="divider" />
+
+<!-- ============ SECTION 2: LONGER BODY OF WORK ============ -->
+<section class="archive-section lane-lineage">
+  <div class="section-header">
+    <p class="section-lane">Futurist · ESP · Lineage</p>
+    <h2 class="section-title">The Longer Body of Work</h2>
+    <p class="section-desc">Co-creation, spiritual philanthropy, the gift economy, and the lineage that in-forms everything else.</p>
+  </div>
+  <div class="video-grid">
+
+    <div class="video-card">
+      <div class="video-embed">
+        <iframe src="https://www.youtube.com/embed/aaxEbqmOVEA" title="Occupying the Noosphere with Bret A Warshawsky Part 1" loading="lazy" allowfullscreen></iframe>
+      </div>
+      <p class="video-meta">November 2017 · Synergy Hub Era</p>
+      <p class="video-title">Occupying the Noosphere — Part 1</p>
+      <p class="video-desc">The earliest archived conversation. Rotterdam, Noomap, the S7 Foundation, and the holographic economy of spiritual philanthropy — the body of work already becoming itself.</p>
+    </div>
+
+    <div class="video-card">
+      <div class="video-embed">
+        <iframe src="https://www.youtube.com/embed/ELSaJa5tKtg" title="Infinite World Game Outtakes: When Bret Met Andrea" loading="lazy" allowfullscreen></iframe>
+      </div>
+      <p class="video-meta">Infinite World Game Outtakes</p>
+      <p class="video-title">When Bret Met <span class="gold">Andrea</span> — Part 1</p>
+      <p class="video-desc">Origin story of a thirteen-year creative partnership. How the collaboration that became Symphonics began — and what it set in motion.</p>
+    </div>
+
+    <div class="video-card">
+      <div class="video-embed">
+        <iframe src="https://www.youtube.com/embed/83Ioxv6sNvE" title="Bret Warshawsky at the Gaia Alliance Gathering" loading="lazy" allowfullscreen></iframe>
+      </div>
+      <p class="video-meta">Gaia Alliance Gathering</p>
+      <p class="video-title">Co-creation, the United Fractal Organism, and Regenerative Filmmaking</p>
+      <p class="video-desc">Ten minutes, the whole architecture — co-creation to planetary scale, the UFO, and the first clear articulation of regenerative filmmaking as vision.</p>
+    </div>
+
+    <div class="video-card">
+      <div class="video-embed">
+        <iframe src="https://www.youtube.com/embed/VF5bEW5DPFw" title="Reflections on the Age of Co-creation — Co-Emergence Podcast #3" loading="lazy" allowfullscreen></iframe>
+      </div>
+      <p class="video-meta">Co-Emergence Podcast #3 · ~2021</p>
+      <p class="video-title">Reflections on the Age of Co-creation</p>
+      <p class="video-desc">The long-form philosophical conversation. Spiritual philanthropy, consciousness as the radical act, the gift paradigm, and the dark decade that became the lens.</p>
+    </div>
+
+    <div class="video-card">
+      <div class="video-embed">
+        <iframe src="https://www.youtube.com/embed/7zJnSdSQPRo" title="New Earth Nomads Interview with Bret Warshawsky" loading="lazy" allowfullscreen></iframe>
+      </div>
+      <p class="video-meta">New Earth Nomads · March 2021</p>
+      <p class="video-title">New Earth Nomads Interview</p>
+      <p class="video-desc">Co-creation, new paradigm living, and the work of building from the inside out — in conversation with the New Earth Nomads community.</p>
+    </div>
+
+  </div>
+</section>
+
+<!-- ============ FOOTER ============ -->
+<footer>
+  <div class="footer-grid">
+    <p class="footer-wordmark">bret.llc</p>
+    <p class="footer-meta">
+      <a href="index-v2.html">← Home</a> &nbsp;·&nbsp;
+      Sister to <a href="https://storylivingrystudio.info" target="_blank" rel="noopener">Storylivingry Studio</a><br />
+      Making a Livingry &nbsp;·&nbsp; 2026
+    </p>
+  </div>
+</footer>
+
+</body>
+</html>

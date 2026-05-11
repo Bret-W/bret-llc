@@ -1,0 +1,930 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<meta name="robots" content="noindex, nofollow, noarchive">
+<title>Bret Warshawsky — Making A Livingry</title>
+<meta name="description" content="I push the envelope of evolution and deliver what the old system can't carry." />
+<meta property="og:title" content="Bret Warshawsky — Making A Livingry" />
+<meta property="og:description" content="Author · Speaker · Futurist · Synergizer — Pushing the envelope of evolution." />
+<meta property="og:image" content="images/pushing-envelope-bret.png" />
+<meta property="og:type" content="website" />
+
+<!-- Fonts -->
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Archivo+Black&family=Fraunces:ital,opsz,wght,SOFT,WONK@0,9..144,300..900,0..100,0..1;1,9..144,300..900,0..100,0..1&family=JetBrains+Mono:ital,wght@0,300..700;1,300..700&display=swap" rel="stylesheet">
+
+<style>
+  :root {
+    --cosmic-deep:   #0A0E1F;
+    --cosmic-navy:   #161B33;
+    --cosmic-violet: #2D2148;
+    --cosmic-haze:   #3E2D5F;
+    --noosphere-magenta: #B046CE;
+    --soul-gold:   #E8B95C;
+    --soul-amber:  #D4A647;
+    --bridge-cream: #F5EFE5;
+    --text-primary:   #F5EFE5;
+    --text-secondary: rgba(245, 239, 229, 0.62);
+    --text-quiet:     rgba(245, 239, 229, 0.35);
+    --font-display: 'Fraunces', Georgia, serif;
+    --font-block:   'Archivo Black', system-ui, sans-serif;
+    --font-mono:    'JetBrains Mono', 'Courier New', monospace;
+    --rhythm: clamp(3rem, 6vw, 6rem);
+    --reading-width: 64ch;
+  }
+
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  html { scroll-behavior: smooth; }
+
+  body {
+    background: var(--cosmic-deep);
+    color: var(--text-primary);
+    font-family: var(--font-display);
+    font-variation-settings: 'opsz' 14, 'wght' 380, 'SOFT' 30;
+    line-height: 1.65;
+    overflow-x: hidden;
+    min-height: 100vh;
+  }
+
+  /* ============ NAV ============ */
+  nav {
+    position: fixed;
+    top: 0; left: 0; right: 0;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 1.4rem clamp(1.5rem, 4vw, 3rem);
+    z-index: 200;
+    background: linear-gradient(180deg, rgba(10, 14, 31, 0.88) 0%, transparent 100%);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+  }
+  .wordmark {
+    font-family: var(--font-display);
+    font-variation-settings: 'opsz' 36, 'wght' 500, 'SOFT' 50, 'WONK' 1;
+    font-style: italic;
+    font-size: 1.4rem;
+    color: var(--soul-gold);
+    text-decoration: none;
+    letter-spacing: 0.02em;
+    transition: opacity 220ms ease;
+  }
+  .wordmark:hover { opacity: 0.75; }
+  .nav-links {
+    display: flex;
+    gap: clamp(0.8rem, 2vw, 2rem);
+    list-style: none;
+  }
+  .nav-links a {
+    font-family: var(--font-mono);
+    font-size: 0.73rem;
+    color: var(--text-secondary);
+    text-decoration: none;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    transition: color 220ms ease;
+    position: relative;
+  }
+  .nav-links a::after {
+    content: '';
+    position: absolute;
+    left: 0; bottom: -4px;
+    width: 0; height: 1px;
+    background: var(--soul-gold);
+    transition: width 280ms ease;
+  }
+  .nav-links a:hover { color: var(--soul-gold); }
+  .nav-links a:hover::after { width: 100%; }
+  .nav-links .placeholder { opacity: 0.45; cursor: not-allowed; }
+  .nav-links .placeholder::before { content: '◌ '; font-size: 0.85em; color: var(--text-quiet); }
+  .nav-links .placeholder:hover { color: var(--text-secondary); }
+  .nav-links .placeholder:hover::after { width: 0; }
+  @media (max-width: 600px) {
+    .nav-links { gap: 0.6rem; }
+    .nav-links .placeholder::before { content: ''; }
+    .nav-links a { font-size: 0.62rem; letter-spacing: 0.07em; }
+  }
+
+  /* ============ HERO — FULL VIEWPORT CANVAS ============ */
+  .hero {
+    position: relative;
+    width: 100%;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+    overflow: hidden;
+  }
+
+  /* Video background */
+  .hero-video {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: center center;
+    z-index: 0;
+    opacity: 0.85;
+  }
+
+  /* The cosmic portrait image layered over video */
+  .hero-portrait {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: center 25%;
+    z-index: 1;
+    opacity: 0;
+    display: none;
+  }
+
+  /* Dark gradient so text is readable */
+  .hero-overlay {
+    position: absolute;
+    inset: 0;
+    background:
+      linear-gradient(to bottom,
+        rgba(10,14,31,0.3) 0%,
+        rgba(10,14,31,0.1) 30%,
+        rgba(10,14,31,0.55) 70%,
+        rgba(10,14,31,0.95) 100%),
+      radial-gradient(ellipse at 30% 50%, rgba(176,70,206,0.18) 0%, transparent 55%),
+      radial-gradient(ellipse at 70% 30%, rgba(232,185,92,0.06) 0%, transparent 45%);
+    z-index: 2;
+  }
+
+  .hero-content {
+    position: relative;
+    z-index: 3;
+    padding: 0 clamp(1.5rem, 5vw, 5rem) clamp(4rem, 8vh, 7rem);
+    max-width: 1200px;
+    width: 100%;
+  }
+
+  .hero-headline {
+    font-family: var(--font-block);
+    font-size: clamp(3rem, 8vw, 7.5rem);
+    line-height: 0.92;
+    letter-spacing: 0.04em;
+    text-transform: uppercase;
+    color: var(--text-primary);
+    opacity: 0;
+    animation: rise 1.2s 0.3s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+    margin-bottom: 1.5rem;
+  }
+
+  .hero-subhead {
+    font-family: var(--font-display);
+    font-variation-settings: 'opsz' 96, 'wght' 380, 'SOFT' 80, 'WONK' 1;
+    font-style: italic;
+    font-size: clamp(1.2rem, 2.5vw, 1.9rem);
+    color: var(--soul-gold);
+    letter-spacing: 0.01em;
+    opacity: 0;
+    animation: rise 1.2s 0.7s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+    margin-bottom: 2.5rem;
+  }
+
+  .hero-expansion {
+    max-width: 48ch;
+    font-family: var(--font-display);
+    font-variation-settings: 'opsz' 144, 'wght' 340, 'SOFT' 100;
+    font-style: italic;
+    font-size: clamp(1.05rem, 1.8vw, 1.45rem);
+    line-height: 1.5;
+    color: var(--text-secondary);
+    opacity: 0;
+    animation: rise 1.2s 1.1s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+    margin-bottom: 1.5rem;
+  }
+
+  .hero-byline {
+    display: block;
+    font-family: var(--font-mono);
+    font-size: 0.68rem;
+    color: var(--text-quiet);
+    letter-spacing: 0.24em;
+    text-transform: uppercase;
+    opacity: 0;
+    animation: rise 1.2s 1.5s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+  }
+
+  @keyframes rise {
+    from { opacity: 0; transform: translateY(24px); }
+    to   { opacity: 1; transform: translateY(0); }
+  }
+
+  /* ============ MARQUEE STRIP ============ */
+  .marquee-wrap {
+    width: 100%;
+    overflow: hidden;
+    background: rgba(10, 14, 31, 0.85);
+    border-top: 1px solid rgba(232, 185, 92, 0.15);
+    border-bottom: 1px solid rgba(232, 185, 92, 0.15);
+    padding: 0.85rem 0;
+    position: relative;
+    z-index: 10;
+  }
+  .marquee-track {
+    display: flex;
+    width: max-content;
+    animation: marquee 40s linear infinite;
+  }
+  .marquee-track:hover { animation-play-state: paused; }
+  .marquee-item {
+    font-family: var(--font-mono);
+    font-size: 0.7rem;
+    letter-spacing: 0.22em;
+    text-transform: uppercase;
+    color: var(--soul-gold);
+    opacity: 0.8;
+    white-space: nowrap;
+    padding: 0 2.5rem;
+  }
+  .marquee-dot {
+    color: var(--text-quiet);
+    opacity: 0.5;
+    padding: 0 0.5rem;
+  }
+  @keyframes marquee {
+    from { transform: translateX(0); }
+    to   { transform: translateX(-50%); }
+  }
+
+  /* ============ SECTIONS ============ */
+  section {
+    padding: var(--rhythm) clamp(1.5rem, 4vw, 3rem);
+    position: relative;
+  }
+  .section-label {
+    display: inline-block;
+    font-family: var(--font-mono);
+    font-size: 0.73rem;
+    color: var(--soul-gold);
+    letter-spacing: 0.22em;
+    text-transform: uppercase;
+    margin-bottom: 2rem;
+    opacity: 0.85;
+  }
+  .section-label::before { content: '§ '; color: var(--text-quiet); }
+  .container { max-width: 1100px; margin: 0 auto; }
+
+  /* Subtle cosmic ambient behind all sections */
+  .cosmic-ambient {
+    position: fixed;
+    inset: 0;
+    background:
+      radial-gradient(ellipse at 15% 25%, rgba(176,70,206,0.05) 0%, transparent 45%),
+      radial-gradient(ellipse at 85% 75%, rgba(45,33,72,0.35) 0%, transparent 50%);
+    pointer-events: none;
+    z-index: -1;
+  }
+
+  /* ============ IDENTITY ============ */
+  .identity {
+    border-top: 1px solid rgba(232, 185, 92, 0.18);
+    border-bottom: 1px solid rgba(232, 185, 92, 0.18);
+    padding-top: clamp(3rem, 6vw, 5rem);
+    padding-bottom: clamp(3rem, 6vw, 5rem);
+  }
+  .identity-text {
+    max-width: 58ch;
+    margin: 0 auto;
+    text-align: center;
+    font-family: var(--font-display);
+    font-variation-settings: 'opsz' 96, 'wght' 380, 'SOFT' 60;
+    font-size: clamp(1.2rem, 2.2vw, 1.75rem);
+    line-height: 1.52;
+    color: var(--text-primary);
+  }
+  .lineage {
+    color: var(--soul-gold);
+    font-style: italic;
+    font-variation-settings: 'opsz' 96, 'wght' 460, 'SOFT' 60;
+  }
+
+  /* ============ PULL QUOTE ============ */
+  .pull-quote {
+    max-width: 44ch;
+    margin: 3.5rem auto;
+    text-align: center;
+    position: relative;
+    padding: 2rem 0;
+  }
+  .pull-quote::before,
+  .pull-quote::after {
+    content: '';
+    display: block;
+    width: 4rem;
+    height: 1px;
+    background: var(--soul-gold);
+    opacity: 0.35;
+    margin: 0 auto;
+  }
+  .pull-quote::before { margin-bottom: 1.75rem; }
+  .pull-quote::after  { margin-top: 1.75rem; }
+  .pull-quote p {
+    font-family: var(--font-display);
+    font-variation-settings: 'opsz' 96, 'wght' 420, 'SOFT' 80, 'WONK' 1;
+    font-style: italic;
+    font-size: clamp(1.4rem, 2.8vw, 2.2rem);
+    line-height: 1.3;
+    color: var(--soul-gold);
+  }
+
+  /* ============ FRONT DOOR ============ */
+  .frontdoor {
+    background: linear-gradient(180deg, transparent 0%, rgba(45,33,72,0.2) 50%, transparent 100%);
+  }
+  .frontdoor-grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 2.5rem;
+    max-width: var(--reading-width);
+    margin: 0 auto;
+  }
+  .frontdoor h2 {
+    font-family: var(--font-display);
+    font-variation-settings: 'opsz' 96, 'wght' 600, 'SOFT' 20;
+    font-size: clamp(1.5rem, 2.8vw, 2.2rem);
+    line-height: 1.25;
+    margin-bottom: 1.5rem;
+    color: var(--text-primary);
+  }
+  .frontdoor h2 em {
+    font-variation-settings: 'opsz' 96, 'wght' 600, 'SOFT' 20, 'WONK' 1;
+    color: var(--soul-gold);
+    font-style: italic;
+  }
+  .frontdoor p {
+    font-size: 1.1rem;
+    line-height: 1.8;
+    color: var(--text-primary);
+    margin-bottom: 1.5rem;
+  }
+  .frontdoor p:last-child { margin-bottom: 0; }
+  .frontdoor .gold {
+    color: var(--soul-gold);
+    font-style: italic;
+    font-variation-settings: 'opsz' 14, 'wght' 480, 'SOFT' 30;
+  }
+  .frontdoor strong {
+    color: var(--text-primary);
+    font-variation-settings: 'opsz' 14, 'wght' 580, 'SOFT' 30;
+  }
+
+  /* ============ BODY OF WORK ============ */
+  .work { padding-top: calc(var(--rhythm) * 1.2); }
+  .work-grid {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr);
+    gap: 2.5rem;
+    max-width: 1080px;
+    margin: 0 auto;
+  }
+  @media (min-width: 900px) {
+    .work-grid { grid-template-columns: 200px minmax(0, 1fr); gap: 4rem; align-items: start; }
+  }
+  .work-prose {
+    max-width: var(--reading-width);
+    font-size: 1.1rem;
+    line-height: 1.8;
+  }
+  .work-prose p { margin-bottom: 1.5rem; }
+  .work-prose p:last-child { margin-bottom: 0; }
+  .work-prose .gold {
+    color: var(--soul-gold);
+    font-style: italic;
+    font-variation-settings: 'opsz' 14, 'wght' 480, 'SOFT' 30;
+  }
+
+  /* ============ LIVED EXPERIENCE ============ */
+  .lived {
+    padding-top: calc(var(--rhythm) * 1.3);
+    padding-bottom: calc(var(--rhythm) * 1.3);
+  }
+  .lived-grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 3rem;
+    max-width: 1080px;
+    margin: 0 auto;
+    align-items: center;
+  }
+  @media (min-width: 900px) {
+    .lived-grid { grid-template-columns: 5fr 7fr; gap: 5rem; }
+  }
+  .lived-photo {
+    aspect-ratio: 1 / 1;
+    overflow: hidden;
+    border-radius: 2px;
+  }
+  .lived-photo img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: center;
+    display: block;
+    transition: transform 700ms cubic-bezier(0.16, 1, 0.3, 1);
+  }
+  .lived-photo:hover img { transform: scale(1.03); }
+  .lived-prose { font-size: 1.1rem; line-height: 1.8; }
+  .lived-prose p { margin-bottom: 1.5rem; }
+  .lived-prose p:last-child { margin-bottom: 0; }
+  .lived-prose em {
+    color: var(--soul-gold);
+    font-variation-settings: 'opsz' 14, 'wght' 460, 'SOFT' 30, 'WONK' 1;
+  }
+
+  /* ============ CLOSING RECOGNITION — FULL VIEWPORT ============ */
+  .closing {
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    padding: var(--rhythm) clamp(1.5rem, 5vw, 5rem);
+    position: relative;
+    overflow: hidden;
+  }
+  .closing::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background:
+      radial-gradient(ellipse at center, rgba(176,70,206,0.22) 0%, transparent 55%),
+      radial-gradient(ellipse at 30% 70%, rgba(232,185,92,0.05) 0%, transparent 40%);
+    pointer-events: none;
+  }
+  /* Animated glow pulse */
+  .closing::after {
+    content: '';
+    position: absolute;
+    top: 50%; left: 50%;
+    transform: translate(-50%, -50%);
+    width: 60vw; height: 60vw;
+    max-width: 700px; max-height: 700px;
+    border-radius: 50%;
+    background: radial-gradient(circle, rgba(176,70,206,0.12) 0%, transparent 70%);
+    animation: pulse-glow 6s ease-in-out infinite;
+    pointer-events: none;
+  }
+  @keyframes pulse-glow {
+    0%, 100% { opacity: 0.6; transform: translate(-50%,-50%) scale(1); }
+    50%       { opacity: 1;   transform: translate(-50%,-50%) scale(1.15); }
+  }
+  .closing-mark {
+    font-family: var(--font-mono);
+    font-size: 0.73rem;
+    color: var(--soul-gold);
+    letter-spacing: 0.3em;
+    text-transform: uppercase;
+    margin-bottom: 4rem;
+    opacity: 0.7;
+    position: relative;
+    z-index: 1;
+  }
+  .recognition {
+    max-width: 22ch;
+    margin: 0 auto 4rem;
+    font-family: var(--font-display);
+    font-variation-settings: 'opsz' 144, 'wght' 440, 'SOFT' 80, 'WONK' 1;
+    font-size: clamp(2.5rem, 7vw, 5.5rem);
+    line-height: 1.1;
+    color: var(--text-primary);
+    position: relative;
+    z-index: 1;
+  }
+  .recognition .gold {
+    color: var(--soul-gold);
+    font-style: italic;
+  }
+  .recognition-body {
+    max-width: 56ch;
+    margin: 0 auto;
+    font-size: 1.05rem;
+    line-height: 1.82;
+    color: var(--text-secondary);
+    font-style: italic;
+    font-variation-settings: 'opsz' 14, 'wght' 380, 'SOFT' 60;
+    position: relative;
+    z-index: 1;
+  }
+  .recognition-body strong {
+    color: var(--text-primary);
+    font-style: normal;
+    font-variation-settings: 'opsz' 14, 'wght' 460, 'SOFT' 30;
+  }
+
+  /* ============ SUB-PAGES — LANE ATMOSPHERES ============ */
+  .subpages {
+    padding-top: var(--rhythm);
+    padding-bottom: var(--rhythm);
+    border-top: 1px solid rgba(232, 185, 92, 0.12);
+  }
+  .subpages-intro {
+    font-family: var(--font-mono);
+    font-size: 0.76rem;
+    color: var(--text-quiet);
+    letter-spacing: 0.22em;
+    text-transform: uppercase;
+    text-align: center;
+    margin-bottom: 3.5rem;
+  }
+  .subpage-grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 1.5rem;
+    max-width: 1080px;
+    margin: 0 auto;
+  }
+  @media (min-width: 700px)  { .subpage-grid { grid-template-columns: repeat(2, 1fr); } }
+  @media (min-width: 1000px) { .subpage-grid { grid-template-columns: repeat(4, 1fr); } }
+
+  .subpage-card {
+    padding: 2rem 1.75rem;
+    border: 1px solid;
+    border-radius: 2px;
+    transition: border-color 300ms ease, background 300ms ease, transform 300ms ease;
+    cursor: not-allowed;
+    position: relative;
+    overflow: hidden;
+  }
+  .subpage-card::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    opacity: 0;
+    transition: opacity 300ms ease;
+  }
+  .subpage-card:hover { transform: translateY(-3px); }
+  .subpage-card:hover::before { opacity: 1; }
+
+  /* Reformation — warm ember */
+  .card-reformation {
+    border-color: rgba(214, 96, 47, 0.22);
+    background: rgba(22, 15, 10, 0.5);
+  }
+  .card-reformation::before {
+    background: radial-gradient(ellipse at bottom left, rgba(214,96,47,0.12) 0%, transparent 65%);
+  }
+  .card-reformation:hover { border-color: rgba(214,96,47,0.5); }
+  .card-reformation .subpage-label { color: #D6602F; }
+
+  /* Filmanthropy — cinematic noir */
+  .card-filmanthropy {
+    border-color: rgba(28, 74, 111, 0.35);
+    background: rgba(8, 6, 18, 0.55);
+  }
+  .card-filmanthropy::before {
+    background: radial-gradient(ellipse at top right, rgba(28,74,111,0.2) 0%, transparent 65%);
+  }
+  .card-filmanthropy:hover { border-color: rgba(28,74,111,0.6); }
+  .card-filmanthropy .subpage-label { color: #5B9EC9; }
+
+  /* ESP — monastic restraint */
+  .card-esp {
+    border-color: rgba(245, 239, 229, 0.1);
+    background: rgba(14, 20, 40, 0.4);
+  }
+  .card-esp::before {
+    background: radial-gradient(ellipse at center, rgba(245,239,229,0.04) 0%, transparent 65%);
+  }
+  .card-esp:hover { border-color: rgba(245,239,229,0.25); }
+  .card-esp .subpage-label { color: rgba(245,239,229,0.55); }
+
+  /* Futurist — electric magenta */
+  .card-futurist {
+    border-color: rgba(176, 70, 206, 0.28);
+    background: rgba(10, 5, 20, 0.55);
+  }
+  .card-futurist::before {
+    background: radial-gradient(ellipse at top left, rgba(176,70,206,0.18) 0%, transparent 65%);
+  }
+  .card-futurist:hover { border-color: rgba(176,70,206,0.6); }
+  .card-futurist .subpage-label { color: #B046CE; }
+
+  .subpage-label {
+    font-family: var(--font-mono);
+    font-size: 0.68rem;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    margin-bottom: 0.8rem;
+    opacity: 0.9;
+    position: relative;
+    z-index: 1;
+  }
+  .subpage-title {
+    font-family: var(--font-display);
+    font-variation-settings: 'opsz' 36, 'wght' 460, 'SOFT' 30;
+    font-size: 1.2rem;
+    line-height: 1.3;
+    color: var(--text-primary);
+    margin-bottom: 0.6rem;
+    position: relative;
+    z-index: 1;
+  }
+  .subpage-meta {
+    font-family: var(--font-mono);
+    font-size: 0.68rem;
+    color: var(--text-quiet);
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    position: relative;
+    z-index: 1;
+  }
+
+  /* ============ FOOTER ============ */
+  footer {
+    padding: 3rem clamp(1.5rem, 4vw, 3rem);
+    border-top: 1px solid rgba(245, 239, 229, 0.07);
+    background: var(--cosmic-deep);
+  }
+  .footer-grid {
+    max-width: 1100px;
+    margin: 0 auto;
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+  }
+  @media (min-width: 700px) {
+    .footer-grid { flex-direction: row; justify-content: space-between; align-items: center; }
+  }
+  .footer-wordmark {
+    font-family: var(--font-display);
+    font-variation-settings: 'opsz' 36, 'wght' 500, 'SOFT' 50, 'WONK' 1;
+    font-style: italic;
+    color: var(--soul-gold);
+    font-size: 1.2rem;
+  }
+  .footer-meta {
+    font-family: var(--font-mono);
+    font-size: 0.7rem;
+    color: var(--text-quiet);
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    line-height: 1.9;
+  }
+  .footer-meta a { color: var(--text-secondary); text-decoration: none; transition: color 220ms ease; }
+  .footer-meta a:hover { color: var(--soul-gold); }
+
+  /* ============ UTILITIES ============ */
+  .gold-italic {
+    color: var(--soul-gold);
+    font-style: italic;
+    font-variation-settings: 'opsz' 14, 'wght' 480, 'SOFT' 30;
+  }
+  .hairline {
+    border: none;
+    border-top: 1px solid rgba(232,185,92,0.12);
+    margin: 0;
+  }
+
+  @media (min-width: 900px) {
+    ::-webkit-scrollbar { width: 5px; }
+    ::-webkit-scrollbar-track { background: var(--cosmic-deep); }
+    ::-webkit-scrollbar-thumb { background: var(--cosmic-haze); border-radius: 3px; }
+    ::-webkit-scrollbar-thumb:hover { background: var(--soul-amber); }
+  }
+  @media (prefers-reduced-motion: reduce) {
+    *, *::before, *::after { animation-duration: 0.001s !important; transition-duration: 0.001s !important; }
+  }
+</style>
+</head>
+<body>
+
+<div class="cosmic-ambient"></div>
+
+<!-- ============ NAV ============ -->
+<nav>
+  <a href="#" class="wordmark">bret.llc</a>
+  <ul class="nav-links">
+    <li><a href="#" class="placeholder" title="Coming soon">Reformation</a></li>
+    <li><a href="#" class="placeholder" title="Coming soon">Filmanthropy</a></li>
+    <li><a href="#" class="placeholder" title="Coming soon">ESP</a></li>
+    <li><a href="#" class="placeholder" title="Coming soon">Futurist</a></li>
+    <li><a href="archive-v2.html" style="color:var(--text-secondary);">Archive</a></li>
+  </ul>
+</nav>
+
+<!-- ============ HERO ============ -->
+<header class="hero">
+  <video
+    class="hero-video"
+    autoplay
+    muted
+    loop
+    playsinline
+    preload="auto"
+    aria-hidden="true"
+  >
+    <source src="images/hero-loop.webm" type="video/webm" />
+    <source src="images/hero-loop.mp4" type="video/mp4" />
+  </video>
+  <!-- Fallback portrait shown if video fails -->
+  <img
+    class="hero-portrait"
+    src="images/pushing-envelope-bret.png"
+    alt="Bret Warshawsky — Making A Livingry"
+  />
+  <div class="hero-overlay"></div>
+  <div class="hero-content">
+    <h1 class="hero-headline">Making A<br />Livingry</h1>
+    <p class="hero-subhead">Pushing the envelope of evolution.</p>
+    <p class="hero-expansion">
+      His work is to recognize what evolution is asking for next,
+      and to build the infrastructure that meets it.
+    </p>
+    <span class="hero-byline">Bret Warshawsky &nbsp;·&nbsp; Author &nbsp;·&nbsp; Speaker &nbsp;·&nbsp; Futurist &nbsp;·&nbsp; Synergizer</span>
+  </div>
+</header>
+
+<!-- ============ MARQUEE ============ -->
+<div class="marquee-wrap" aria-hidden="true">
+  <div class="marquee-track">
+    <!-- First set -->
+    <span class="marquee-item">Making a Livingry</span><span class="marquee-dot">·</span>
+    <span class="marquee-item">Pushing the Envelope of Evolution</span><span class="marquee-dot">·</span>
+    <span class="marquee-item">Mental Health Reformation</span><span class="marquee-dot">·</span>
+    <span class="marquee-item">Filmanthropy</span><span class="marquee-dot">·</span>
+    <span class="marquee-item">Evolutionary &amp; Spiritual Philanthropy</span><span class="marquee-dot">·</span>
+    <span class="marquee-item">Storylivingry Studio</span><span class="marquee-dot">·</span>
+    <span class="marquee-item">Author</span><span class="marquee-dot">·</span>
+    <span class="marquee-item">Speaker</span><span class="marquee-dot">·</span>
+    <span class="marquee-item">Futurist</span><span class="marquee-dot">·</span>
+    <span class="marquee-item">Synergizer</span><span class="marquee-dot">·</span>
+    <span class="marquee-item">Scenius</span><span class="marquee-dot">·</span>
+    <span class="marquee-item">Civil Rights Moviement for the Soul</span><span class="marquee-dot">·</span>
+    <!-- Duplicate for seamless loop -->
+    <span class="marquee-item">Making a Livingry</span><span class="marquee-dot">·</span>
+    <span class="marquee-item">Pushing the Envelope of Evolution</span><span class="marquee-dot">·</span>
+    <span class="marquee-item">Mental Health Reformation</span><span class="marquee-dot">·</span>
+    <span class="marquee-item">Filmanthropy</span><span class="marquee-dot">·</span>
+    <span class="marquee-item">Evolutionary &amp; Spiritual Philanthropy</span><span class="marquee-dot">·</span>
+    <span class="marquee-item">Storylivingry Studio</span><span class="marquee-dot">·</span>
+    <span class="marquee-item">Author</span><span class="marquee-dot">·</span>
+    <span class="marquee-item">Speaker</span><span class="marquee-dot">·</span>
+    <span class="marquee-item">Futurist</span><span class="marquee-dot">·</span>
+    <span class="marquee-item">Synergizer</span><span class="marquee-dot">·</span>
+    <span class="marquee-item">Scenius</span><span class="marquee-dot">·</span>
+    <span class="marquee-item">Civil Rights Moviement for the Soul</span><span class="marquee-dot">·</span>
+  </div>
+</div>
+
+<!-- ============ IDENTITY ============ -->
+<section class="identity">
+  <div class="container">
+    <p class="identity-text">
+      Working in the lineage of
+      <span class="lineage">Buckminster Fuller, Barbara Marx Hubbard,</span>
+      <span class="lineage">and Joseph Campbell,</span>
+      Bret Warshawsky is an author, speaker, futurist, and synergizer at the intersection of consciousness, story, the
+      <span class="gold-italic">Mental Health Reformation</span>,
+      and <span class="gold-italic">Filmanthropy</span>.
+    </p>
+  </div>
+</section>
+
+<!-- ============ FRONT DOORS ============ -->
+<section class="frontdoor">
+  <div class="container">
+    <div class="frontdoor-grid">
+      <span class="section-label">01 — Front Doors</span>
+
+      <h2>Under the banner of Storylivingry Studio, <em>his transmedium production vision</em>, Bret leads two parallel front-door initiatives.</h2>
+
+      <p>
+        As the visionary behind the <strong>Mental Health Reformation</strong> — <em class="gold">a Civil Rights Moviement for the Soul</em> — he is catalyzing the Mental Health Reformation Consortium in New Jersey with business partner <span class="gold">Janet Werner</span> (U Have My Word LLC), and leading the development of the <strong>AWARE App</strong>, a tool for first responders to recognize spiritually informed experiences in moments of crisis.
+      </p>
+
+      <!-- Pull quote: Civil Rights Moviement -->
+      <div class="pull-quote">
+        <p>A Civil Rights Moviement for the Soul.</p>
+      </div>
+
+      <p>
+        As founder of <strong>Social Effects, Inc.</strong> — a New Jersey startup in development — he is the <em class="gold">Voice of Filmanthropy</em>: the practice of making philanthropy a featured, designed-in outcome of the filmmaking process itself, not a side effect, not a press release, not an afterthought.
+      </p>
+
+      <p>
+        Both initiatives are <em>in-formed</em> by the broader practice of <strong>Evolutionary and Spiritual Philanthropy</strong> — a philosophy and economic orientation Bret has lived and embodied for fifteen-plus years, traceable to a 2010 strategic document and a track record of approximately <span class="gold">four hundred thousand USD</span> and <span class="gold">three million-plus in resources</span> flowed through the projects he has been involved with.
+      </p>
+    </div>
+  </div>
+</section>
+
+<!-- ============ BODY OF WORK ============ -->
+<section class="work">
+  <div class="container">
+    <div class="work-grid">
+      <div>
+        <span class="section-label">02 — Body of Work</span>
+      </div>
+      <div class="work-prose">
+        <p>Bret's body of work spans more than a decade of practical co-creation inside the lineage.</p>
+        <p>He worked directly with <span class="gold">Barbara Marx Hubbard</span> from 2014 to her passing in 2019, carrying forward her Seven S's of Co-creation framework. He is an alumnus of the Buckminster Fuller-inspired Design Science Studio, co-founder of <span class="gold">Symphonics</span> with his creative partner <span class="gold">Andrea Harding</span> — a thirteen-year collaboration in international systems-design and co-creation — and co-creator of <span class="gold">Synergy Hub 1.0, Rotterdam</span> (2016–2017), a sixteen-month multi-partner social experiment in gift-economy living and co-creative governance, run with the Meesteren Foundation and United Earth.</p>
+        <p>His writing — including a chapter in <span class="gold">Lisa Nichols</span>'s Amazon best-seller <em>Unbreakable Spirit</em> (2011) and more than three hundred essays at <em>The Syntony Times</em> — extends the work in long form.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ LIVED EXPERIENCE ============ -->
+<section class="lived">
+  <div class="container">
+    <div class="lived-grid">
+      <div class="lived-photo">
+        <img src="images/bret-on-beach.png" alt="Bret resting on the beach — earned from the inside" />
+      </div>
+      <div class="lived-prose">
+        <span class="section-label">03 — The Lens</span>
+        <p>His perspective on healing, dignity, and human complexity is <em>earned from the inside</em> — thirty-plus years of living with perceived mental illness, thirteen-plus of them off psychiatric medication, and still in the work.</p>
+        <p>He doesn't speak from the other side of the experience; he speaks from inside it, alongside everyone else doing the same.</p>
+
+        <!-- Pull quote: The wound is the lens -->
+        <div class="pull-quote" style="max-width:32ch; margin: 2.5rem 0;">
+          <p>The wound is the lens.</p>
+        </div>
+
+        <p>The lens is earned the way every honest lens is — through participation, not through resolution.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ CLOSING RECOGNITION — FULL VIEWPORT ============ -->
+<section class="closing">
+  <div class="container">
+    <p class="closing-mark">04 — A Single Recognition</p>
+    <p class="recognition">
+      We are the <span class="gold">medicine</span>, and the <span class="gold">synergy</span> is the substance.
+    </p>
+    <p class="recognition-body">
+      No one — however brilliant, gifted, or impactful — reaches their highest potential alone. <strong>That is scenius. That is spiritual.</strong> And it is no coincidence that our most advanced technologies are beginning to mirror it: the recursive ontology where the One experiences itself as the many experiencing themselves as the One, expressing itself — the same recognition ancient wisdom traditions and cutting-edge AI are converging upon.
+    </p>
+  </div>
+</section>
+
+<!-- ============ SUB-PAGES ============ -->
+<section class="subpages">
+  <div class="container">
+    <p class="subpages-intro">— Sub-pages in development —</p>
+    <div class="subpage-grid">
+      <div class="subpage-card card-reformation">
+        <p class="subpage-label">01 / Lane One</p>
+        <p class="subpage-title">Mental Health Reformation</p>
+        <p class="subpage-meta">A Civil Rights Moviement for the Soul</p>
+      </div>
+      <div class="subpage-card card-filmanthropy">
+        <p class="subpage-label">02 / Lane Two</p>
+        <p class="subpage-title">Filmanthropy</p>
+        <p class="subpage-meta">Story as civilizational infrastructure</p>
+      </div>
+      <div class="subpage-card card-esp">
+        <p class="subpage-label">03 / Through-Line</p>
+        <p class="subpage-title">Evolutionary &amp; Spiritual Philanthropy</p>
+        <p class="subpage-meta">Fifteen-plus years of walk</p>
+      </div>
+      <div class="subpage-card card-futurist">
+        <p class="subpage-label">04 / Wedge</p>
+        <p class="subpage-title">SV · Web3 · Gen X Futurist</p>
+        <p class="subpage-meta">The future is coming, and he's hung like a unicorn</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ FOOTER ============ -->
+<footer>
+  <div class="footer-grid">
+    <p class="footer-wordmark">bret.llc</p>
+    <p class="footer-meta">
+      Sister to <a href="https://storylivingrystudio.info" target="_blank" rel="noopener">Storylivingry Studio</a><br />
+      Making a Livingry &nbsp;·&nbsp; 2026
+    </p>
+  </div>
+</footer>
+
+<script>
+// Fallback: if video fails to play, show the portrait image
+document.addEventListener('DOMContentLoaded', function() {
+  const video = document.querySelector('.hero-video');
+  const portrait = document.querySelector('.hero-portrait');
+  if (video) {
+    video.addEventListener('error', function() {
+      video.style.display = 'none';
+      if (portrait) { portrait.style.display = 'block'; portrait.style.opacity = '0.55'; }
+    });
+  }
+});
+</script>
+
+</body>
+</html>
